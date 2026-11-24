@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>وبلاگ رفتار مصرف‌کننده دانیال عویدی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: journal-style course blog. Dark ink masthead, sticky section nav, then books, brand case files (success vs failure), my posts, sources. */
+:root{
+  --bg:#f3f6f6;
+  --surface:#ffffff;
+  --ink:#122128;
+  --muted:#51646c;
+  --line:#d5dfe1;
+  --accent:#0e6b64;
+  --accent-soft:#dcf0ee;
+  --win:#1d7a45;
+  --win-soft:#def3e5;
+  --lose:#b3362b;
+  --lose-soft:#fbe4e1;
+  --mast:#0f2a31;
+  --mast-ink:#eaf4f3;
+  --mast-muted:#a9c3c6;
+  --font:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e181d;--surface:#15252c;--ink:#e6eef0;--muted:#9bb0b8;--line:#27393f;
+    --accent:#5fd0c5;--accent-soft:#17383a;--win:#6fd394;--win-soft:#173a26;--lose:#f19489;--lose-soft:#3d1f1c;
+    --mast:#091216;--mast-ink:#eaf4f3;--mast-muted:#8fb0b4;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e181d;--surface:#15252c;--ink:#e6eef0;--muted:#9bb0b8;--line:#27393f;
+  --accent:#5fd0c5;--accent-soft:#17383a;--win:#6fd394;--win-soft:#173a26;--lose:#f19489;--lose-soft:#3d1f1c;
+  --mast:#091216;--mast-ink:#eaf4f3;--mast-muted:#8fb0b4;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.95;font-size:16px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+h1,h2,h3{text-wrap:balance}
+
+/* masthead */
+.mast{background:var(--mast);color:var(--mast-ink)}
+.mast .wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:36px;padding-top:48px;padding-bottom:40px;align-items:start}
+.kicker{color:var(--mast-muted);font-weight:500;font-size:14px;margin:0 0 10px}
+.mast h1{font-size:clamp(28px,4.8vw,46px);line-height:1.5;margin:0 0 14px;font-weight:900}
+.mast .lead{color:var(--mast-muted);margin:0;max-width:60ch}
+.idcard{border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14.5px}
+.idcard dt{color:var(--mast-muted)}
+.idcard dd{margin:0;font-weight:500}
+.stats{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:22px}
+.stat b{display:block;font-size:26px;font-weight:800;line-height:1.3;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--mast-muted)}
+
+nav.top{position:sticky;top:0;z-index:10;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:4px 22px;overflow-x:auto;padding-top:12px;padding-bottom:12px;font-size:15px;font-weight:500;white-space:nowrap}
+nav.top a{text-decoration:none;color:var(--ink);padding:0 2px;border-bottom:2px solid transparent}
+nav.top a:hover{border-color:var(--accent);color:var(--accent)}
+
+section.block{padding:44px 0 8px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 20px;margin-bottom:20px}
+.sec-head h2{margin:0;font-size:26px;font-weight:800}
+.sec-head p{margin:0;color:var(--muted);max-width:56ch;font-size:15px}
+
+/* decision path */
+.path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:s}
+.path li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;font-size:14.5px;position:relative}
+.path li::before{content:counter(s,persian);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;margin-bottom:6px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .path li::before{color:#06201d}}
+:root[data-theme="dark"] .path li::before{color:#06201d}
+.path li b{display:block;font-size:15.5px;margin-bottom:2px}
+.path li span{color:var(--muted);font-size:13.5px;line-height:1.7;display:block}
+.note{color:var(--muted);font-size:14px;margin:12px 0 0}
+
+/* tabs */
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:2px}
+.tab{flex:none;font:inherit;font-size:14.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 16px;border-radius:999px;cursor:pointer}
+.tab:hover{border-color:var(--accent)}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tab[aria-pressed="true"]{color:#06201d}}
+:root[data-theme="dark"] .tab[aria-pressed="true"]{color:#06201d}
+
+/* books */
+.books{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.book{display:grid;grid-template-columns:54px 1fr;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.spine{background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;text-orientation:mixed;font-weight:800;font-size:13px;letter-spacing:.02em;padding:10px 0}
+.book[data-cat="brand"] .spine{background:#7a4c8f}
+.book[data-cat="mind"] .spine{background:#b0641c}
+.book[data-cat="mgmt"] .spine{background:#2f5aa8}
+.book .body{padding:16px 18px;display:grid;gap:6px}
+.book h3{margin:0;font-size:17px;line-height:1.7}
+.book .en{direction:ltr;text-align:right;font-size:13.5px;color:var(--muted)}
+.book .by{font-size:13.5px;color:var(--muted)}
+.book p{margin:0;font-size:14.5px}
+.book .tie{font-size:13.5px;color:var(--accent);font-weight:500}
+
+/* brand cases */
+.cases{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.case header{padding:16px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.case.win header{background:var(--win-soft)}
+.case.lose header{background:var(--lose-soft)}
+.case header h3{margin:0;font-size:21px;font-weight:800;line-height:1.5}
+.case header small{display:block;color:var(--muted);font-size:13px;font-weight:400}
+.badge{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13.5px;padding:2px 12px;border-radius:999px;white-space:nowrap}
+.win .badge{background:var(--win);color:#fff}
+.lose .badge{background:var(--lose);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .badge{color:#0b1a12!important}}
+:root[data-theme="dark"] .badge{color:#0b1a12!important}
+.badge svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.case .inner{padding:16px 20px 20px;display:grid;gap:12px}
+.tl{list-style:none;margin:0;padding:0 18px 0 0;position:relative}
+.tl::before{content:"";position:absolute;right:5px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl li{position:relative;padding:0 0 10px;font-size:14.5px;line-height:1.8}
+.tl li::before{content:"";position:absolute;right:-18px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--muted)}
+.win .tl li::before{border-color:var(--win)}
+.lose .tl li::before{border-color:var(--lose)}
+.tl b{font-variant-numeric:tabular-nums;margin-left:6px}
+.case p{margin:0;font-size:14.8px}
+.lesson{border-right:4px solid var(--accent);background:var(--accent-soft);padding:8px 14px;border-radius:8px;font-size:14.5px}
+.lesson b{display:block;font-size:13px;color:var(--accent);margin-bottom:2px}
+.chap{font-size:13px;color:var(--muted)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.compare>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+.compare h3{margin:0 0 6px;font-size:17px}
+.compare .w h3{color:var(--win)}
+.compare .l h3{color:var(--lose)}
+.compare ul{margin:0;padding:0 18px 0 0;font-size:14.8px}
+
+/* posts */
+.feed{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.post{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:18px 20px;display:grid;gap:8px;align-content:start}
+.post.real{border-style:solid}
+.post .meta{display:flex;flex-wrap:wrap;gap:6px 10px;font-size:13px;color:var(--muted)}
+.tag{background:var(--accent-soft);color:var(--accent);padding:0 10px;border-radius:999px;font-weight:500}
+.post h3{margin:0;font-size:18px;line-height:1.7}
+.post p{margin:0;color:var(--muted);font-size:14.5px}
+.post .links{font-size:14px;font-weight:500}
+.post .off{color:var(--muted);font-weight:400}
+.empty{display:none;color:var(--muted);padding:18px;border:1px dashed var(--line);border-radius:12px}
+
+/* sources */
+.src{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 22px}
+.src ul{margin:0;padding:0 18px 0 0;font-size:14.5px;columns:2;column-gap:36px}
+.src li{margin-bottom:6px;break-inside:avoid}
+.src .en{direction:ltr;display:inline-block}
+
+footer{margin-top:48px;border-top:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:14px;padding:24px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between}
+
+@media (max-width:820px){
+  .mast .wrap{grid-template-columns:1fr;padding-top:34px;padding-bottom:30px}
+  .path{grid-template-columns:1fr 1fr}
+  .books,.cases,.feed,.compare{grid-template-columns:1fr}
+  .src ul{columns:1}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="mast" id="top-of-page">
+  <div class="wrap">
+    <div>
+      <p class="kicker">درس مدیریت رفتار مصرف‌کننده</p>
+      <h1>از ذهن مصرف‌کننده تا سرنوشت برند</h1>
+      <p class="lead">یادداشت‌ها، تحقیق‌ها و ارائه‌های من در طول ترم، بر پایه‌ی کتاب «رفتار مصرف‌کننده» مایکل آر. سولومون با ترجمه‌ی حیدرزاده. در کنار آن، کتاب‌های مهم این حوزه و پرونده‌ی هشت برند را مرور کرده‌ام که یا به‌خاطر شناخت مصرف‌کننده موفق شدند یا به‌خاطر نادیده گرفتنش زمین خوردند.</p>
+      <div class="stats">
+        <div class="stat"><b id="nBooks">۰</b><span>کتاب معرفی‌شده</span></div>
+        <div class="stat"><b id="nBrands">۰</b><span>پرونده‌ی برند</span></div>
+        <div class="stat"><b id="nPosts">۰</b><span>تحقیق و ارائه</span></div>
+      </div>
+    </div>
+    <dl class="idcard">
+      <dt>دانشجو</dt><dd>دانیال عویدی</dd>
+      <dt>استاد</dt><dd>دکتر علی امیدی</dd>
+      <dt>درس</dt><dd>مدیریت رفتار مصرف‌کننده</dd>
+      <dt>ترم</dt><dd>نیم‌سال اول ۱۴۰۵–۱۴۰۶</dd>
+      <dt>منبع اصلی</dt><dd>سولومون، ترجمه‌ی حیدرزاده</dd>
+    </dl>
+  </div>
+</header>
+
+<nav class="top" aria-label="بخش‌های وبلاگ">
+  <div class="wrap">
+    <a href="#model">مدل تصمیم خرید</a>
+    <a href="#books">کتاب‌ها</a>
+    <a href="#brands">سرگذشت برندها</a>
+    <a href="#posts">تحقیق‌ها و ارائه‌ها</a>
+    <a href="#sources">منابع</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="block" id="model" aria-labelledby="h-model">
+    <div class="sec-head">
+      <h2 id="h-model">چارچوب درس: فرایند تصمیم خرید</h2>
+      <p>پرونده‌های برند و کتاب‌های این وبلاگ را با همین پنج مرحله می‌خوانم.</p>
+    </div>
+    <ol class="path">
+      <li><b>تشخیص نیاز</b><span>فاصله‌ی وضع فعلی تا وضع مطلوب</span></li>
+      <li><b>جستجوی اطلاعات</b><span>حافظه، اطرافیان، رسانه و فروشگاه</span></li>
+      <li><b>ارزیابی گزینه‌ها</b><span>معیارها، نگرش و ادراک از برند</span></li>
+      <li><b>انتخاب محصول</b><span>قیمت، اعتماد و ریسک ادراک‌شده</span></li>
+      <li><b>ارزیابی پس از خرید</b><span>رضایت، وفاداری و تجربه‌ی بعدی</span></li>
+    </ol>
+    <p class="note">هر برندی که در این وبلاگ آمده، در یکی از این مراحل یا برنده شده یا باخته است.</p>
+  </section>
+
+  <section class="block" id="books" aria-labelledby="h-books">
+    <div class="sec-head">
+      <h2 id="h-books">کتابخانه‌ی رفتار مصرف‌کننده و مدیریت</h2>
+      <p>کتاب‌هایی که برای فهم مصرف‌کننده، برند و تصمیم‌گیری باید شناخت. زیر هر کتاب نوشته‌ام به کدام پرونده‌ی برند وصل می‌شود. عنوان‌های فارسی ترجمه‌ی تقریبی از نام اصلی است و ممکن است با نسخه‌ی منتشرشده‌ی فارسی فرق داشته باشد.</p>
+    </div>
+    <div class="tabs" id="bookTabs" role="group" aria-label="دسته‌ی کتاب"></div>
+    <div class="books" id="books-grid"></div>
+  </section>
+
+  <section class="block" id="brands" aria-labelledby="h-brands">
+    <div class="sec-head">
+      <h2 id="h-brands">سرگذشت برندها: ساخت، اوج و سقوط</h2>
+      <p>هشت پرونده با خط زمانی، علت موفقیت یا شکست و درس مرتبط با رفتار مصرف‌کننده.</p>
+    </div>
+    <div class="tabs" id="brandTabs" role="group" aria-label="فیلتر پرونده‌ها"></div>
+    <div class="cases" id="cases"></div>
+
+    <div class="compare">
+      <div class="w">
+        <h3>الگوی مشترک موفقیت‌ها</h3>
+        <ul>
+          <li>برند را به هویت و احساس مصرف‌کننده وصل کردند (نایک).</li>
+          <li>در بحران به هسته‌ی ارزش برند برگشتند (لگو).</li>
+          <li>مشکل واقعی مشتری را حل کردند (نتفلیکس، دیجی‌کالا).</li>
+        </ul>
+      </div>
+      <div class="l">
+        <h3>الگوی مشترک شکست‌ها</h3>
+        <ul>
+          <li>پیوند عاطفی مشتری با برند را دست‌کم گرفتند (نیوکوک).</li>
+          <li>نوآوری را داخل شرکت دیدند و کنار گذاشتند (کداک).</li>
+          <li>به مدل کسب‌وکار قدیمی چسبیدند (بلاک‌باستر، نوکیا).</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">لوگو و عکس رسمی برندها را عمداً نگذاشته‌ام، چون مالکیت آن‌ها با خود شرکت‌هاست. به‌جایش خط زمانی و تحلیل آورده‌ام. تصاویر محصول و سایت هر برند در فایل ارائه‌ها هست.</p>
+  </section>
+
+  <section class="block" id="posts" aria-labelledby="h-posts">
+    <div class="sec-head">
+      <h2 id="h-posts">تحقیق‌ها و ارائه‌های من</h2>
+      <p>کارهای کلاسی به‌ترتیب انتشار، هرکدام با فصل مربوط در کتاب سولومون.</p>
+    </div>
+    <div class="tabs" id="postTabs" role="group" aria-label="فیلتر نوع مطلب"></div>
+    <div class="feed" id="feed" aria-live="polite"></div>
+    <p class="empty" id="empty">هنوز مطلبی در این دسته منتشر نشده است.</p>
+  </section>
+
+  <section class="block" id="sources" aria-labelledby="h-src">
+    <div class="sec-head">
+      <h2 id="h-src">منابع</h2>
+      <p>منابعی که برای تاریخ‌ها و ادعاهای بخش برندها استفاده شده است.</p>
+    </div>
+    <div class="src">
+      <ul id="srcList"></ul>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>وبلاگ درس مدیریت رفتار مصرف‌کننده، تهیه‌شده توسط دانیال عویدی برای دکتر علی امیدی.</span>
+    <span>منبع اصلی: Solomon, M. R., Consumer Behavior: Buying, Having, and Being</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- داده‌ها: برای افزودن مطلب جدید فقط همین بخش را ویرایش کنید ---------- */
+
+var BOOKS = [
+ {cat:'cb', spine:'متن درسی', title:'رفتار مصرف‌کننده', en:'Consumer Behavior: Buying, Having, and Being', by:'مایکل آر. سولومون (ترجمه‌ی حیدرزاده)',
+  text:'منبع اصلی درس. خرید را سه‌گانه‌ی «خریدن، داشتن و بودن» می‌بیند: مصرف‌کننده فقط کالا نمی‌خرد، هویت و تعلق هم می‌خرد.', tie:'محور همه‌ی پرونده‌ها'},
+ {cat:'cb', spine:'متن درسی', title:'رفتار مصرف‌کننده (شیفمن و کانوک)', en:'Consumer Behavior — Schiffman & Kanuk', by:'لئون شیفمن و لزلی کانوک',
+  text:'کتاب درسی کلاسیک دیگر این درس با تأکید بیشتر بر مدل‌ها و پژوهش‌های روان‌شناختی. برای مقایسه‌ی دیدگاه‌ها با سولومون مفید است.', tie:'مقایسه با فصل‌های ادراک و نگرش'},
+ {cat:'brand', spine:'برند', title:'ساختن برندهای قدرتمند', en:'Building Strong Brands', by:'دیوید آکر، ۱۹۹۶',
+  text:'مفهوم ارزش ویژه‌ی برند و اجزای آن (آگاهی، کیفیت ادراک‌شده، تداعی‌ها و وفاداری) را مطرح می‌کند.', tie:'نایک، لگو'},
+ {cat:'brand', spine:'برند', title:'مدیریت استراتژیک برند', en:'Strategic Brand Management', by:'کوین لین کلر',
+  text:'ارزش ویژه‌ی برند از دید مشتری را توضیح می‌دهد: برند وقتی ارزش دارد که در ذهن مصرف‌کننده معنا داشته باشد.', tie:'نیوکوک، لگو'},
+ {cat:'brand', spine:'برند', title:'جایگاه‌یابی: نبرد برای ذهن شما', en:'Positioning: The Battle for Your Mind', by:'ال رایز و جک تراوت، ۱۹۸۱',
+  text:'استدلال می‌کند که رقابت اصلی در ذهن مشتری است و برند باید یک جایگاه روشن در آن بگیرد.', tie:'نتفلیکس، دیجی‌کالا'},
+ {cat:'brand', spine:'برند', title:'برندها چگونه نمادین می‌شوند', en:'How Brands Become Icons', by:'داگلاس هولت، ۲۰۰۴',
+  text:'برندهای نمادین با روایت‌هایی ساخته می‌شوند که تنش‌های فرهنگی جامعه را حل می‌کنند، نه فقط با ویژگی‌های محصول.', tie:'نایک'},
+ {cat:'mind', spine:'روان‌شناسی', title:'تفکر، سریع و کند', en:'Thinking, Fast and Slow', by:'دانیل کانمن، ۲۰۱۱',
+  text:'دو شیوه‌ی تفکر (سریع و شهودی، کند و تحلیلی) را معرفی می‌کند. توضیح می‌دهد چرا بسیاری از خریدها بدون محاسبه‌ی دقیق انجام می‌شود.', tie:'مرحله‌ی ارزیابی و انتخاب'},
+ {cat:'mind', spine:'روان‌شناسی', title:'تأثیر: روان‌شناسی اقناع', en:'Influence: The Psychology of Persuasion', by:'رابرت چیالدینی، ۱۹۸۴',
+  text:'شش اصل اقناع را بررسی می‌کند، از جمله عمل متقابل، اثبات اجتماعی و کمیابی. در تبلیغات و فروش کاربرد دارد.', tie:'تأثیر گروه‌ها'},
+ {cat:'mind', spine:'روان‌شناسی', title:'تلنگر', en:'Nudge', by:'ریچارد تیلر و کاس سانستین، ۲۰۰۸',
+  text:'نشان می‌دهد چطور طراحی گزینه‌ها و حالت پیش‌فرض بدون محدود کردن انتخاب، رفتار را جهت می‌دهد.', tie:'طراحی تجربه‌ی خرید'},
+ {cat:'mind', spine:'روان‌شناسی', title:'غیرمنطقی‌های قابل پیش‌بینی', en:'Predictably Irrational', by:'دن آریلی، ۲۰۰۸',
+  text:'با آزمایش‌های ساده نشان می‌دهد تصمیم‌های ما به‌طور منظم از منطق اقتصادی فاصله می‌گیرد، مثلاً در اثر لنگر قیمت.', tie:'قیمت‌گذاری و ادراک ارزش'},
+ {cat:'mgmt', spine:'مدیریت', title:'معضل نوآور', en:"The Innovator's Dilemma", by:'کلایتون کریستنسن، ۱۹۹۷',
+  text:'توضیح می‌دهد چرا شرکت‌های بزرگ و خوب‌اداره‌شده در برابر فناوری‌های مخل شکست می‌خورند، چون به مشتریان فعلی‌شان بیش از حد گوش می‌دهند.', tie:'کداک، نوکیا، بلاک‌باستر'},
+ {cat:'mgmt', spine:'مدیریت', title:'تمرین مدیریت', en:'The Practice of Management', by:'پیتر دراکر، ۱۹۵۴',
+  text:'هدف کسب‌وکار را «خلق مشتری» می‌داند و بازاریابی و نوآوری را دو کارکرد اصلی هر شرکت می‌شمارد.', tie:'همه‌ی پرونده‌ها'},
+ {cat:'mgmt', spine:'مدیریت', title:'استراتژی رقابتی', en:'Competitive Strategy', by:'مایکل پورتر، ۱۹۸۰',
+  text:'چارچوب پنج نیروی رقابتی را ارائه می‌دهد که برای تحلیل صنعت و جایگاه برند ابزار پایه است.', tie:'بلاک‌باستر و نتفلیکس'},
+ {cat:'mgmt', spine:'مدیریت', title:'مدیریت بازاریابی', en:'Marketing Management', by:'فیلیپ کاتلر و کوین لین کلر',
+  text:'مرجع اصلی بازاریابی که از تحلیل بازار و بخش‌بندی تا ارزش‌آفرینی برای مشتری را پوشش می‌دهد.', tie:'پایه‌ی مشترک همه‌ی مباحث'}
+];
+var BOOK_CATS = [['all','همه'],['cb','رفتار مصرف‌کننده'],['brand','برند و جایگاه‌یابی'],['mind','روان‌شناسی تصمیم'],['mgmt','مدیریت و استراتژی']];
+
+var BRANDS = [
+ {name:'نایک', en:'Nike', sector:'پوشاک ورزشی', win:true, outcome:'موفقیت',
+  tl:[['۱۹۶۴','فیل نایت و بیل باورمن شرکت Blue Ribbon Sports را راه می‌اندازند و کفش دویدن ژاپنی توزیع می‌کنند.'],
+      ['۱۹۷۱','با پایان قرارداد تأمین‌کننده، برند خودشان را با نام Nike می‌سازند. نشان Swoosh را یک دانشجوی طراحی گرافیک با فاکتور ۳۵ دلاری طراحی می‌کند.'],
+      ['۱۹۸۸','کمپین «Just Do It» شروع می‌شود.']],
+  story:'نایک از یک توزیع‌کننده‌ی کوچک به برندی رسید که مصرف‌کننده با آن هویت ورزشکاری می‌خرد، نه فقط کفش. نشان ساده و تکرارشونده کمک کرد در ذهن بماند.',
+  lesson:'مصرف‌کننده برند را برای ابراز «خود» می‌خرد. هرچه برند به هویت مطلوب نزدیک‌تر باشد، وفاداری عمیق‌تر است.', chap:'مرتبط با فصل خود و شخصیت'},
+ {name:'لگو', en:'LEGO', sector:'اسباب‌بازی', win:true, outcome:'بازگشت موفق',
+  tl:[['۲۰۰۳','گسترش بی‌رویه‌ی محصولات و تنوع زیاد، شرکت را نزدیک ورشکستگی می‌برد. زیان آن سال بیش از ۳۰۰ میلیون دلار گزارش شده است.'],
+      ['۲۰۰۴','یورگن ویگ کنودستورپ، اولین مدیرعامل غیرخانوادگی لگو، مسئولیت می‌گیرد.'],
+      ['بعد از آن','هزینه‌ها کاهش می‌یابد، کسب‌وکارهای کم‌بازده کنار می‌روند و کنترل پارک‌های لگولند فروخته می‌شود. تمرکز دوباره روی آجر لگو می‌رود.']],
+  story:'لگو وقتی به بحران رسید که برند را به لباس و حوزه‌های دیگر کشاند و از هسته‌ی «ساختن با آجر» دور شد. نجاتش در بازگشت به همان هسته بود.',
+  lesson:'گسترش برند به هر حوزه ارزش آن را رقیق می‌کند. وفاداری مشتری به یک معنای مشخص است.', chap:'مرتبط با فصل نگرش‌ها و وفاداری'},
+ {name:'نتفلیکس', en:'Netflix', sector:'سرگرمی و پخش آنلاین', win:true, outcome:'موفقیت',
+  tl:[['۲۰۰۰','نتفلیکس با حدود ۳۰۰ هزار مشترک و ۱۰۰ کارمند، در آن سال ۵۷ میلیون دلار زیان می‌دهد و به بلاک‌باستر پیشنهاد می‌کند خودش را به ۵۰ میلیون دلار بفروشد. پیشنهاد رد می‌شود.'],
+      ['۲۰۰۳','تا حدود سه سال بعد، تعداد مشترکان از یک میلیون می‌گذرد.'],
+      ['پایان ۲۰۰۶','تعداد مشترکان به شش میلیون می‌رسد.']],
+  story:'نتفلیکس به‌جای اجاره‌ی تکی و جریمه‌ی دیرکرد، مدل اشتراکی و راحتی را جلو گذاشت و مشکل مشتری را حل کرد.',
+  lesson:'ریشه‌ی ناراحتی مشتری (مثل جریمه‌ی دیرکرد) می‌تواند ریشه‌ی یک مدل کسب‌وکار جدید باشد.', chap:'مرتبط با فصل تصمیم‌گیری و رضایت'},
+ {name:'دیجی‌کالا', en:'Digikala', sector:'خرده‌فروشی آنلاین ایران', win:true, outcome:'موفقیت',
+  tl:[['۱۳۸۵','برادران حمید و سعید محمدی دیجی‌کالا را تأسیس می‌کنند، طبق گزارش‌ها با سرمایه‌ی صفر و هفت نفر.'],
+      ['۱۳۹۹','تعداد فروشندگان از ۱۰۰ هزار کسب‌وکار فراتر می‌رود.'],
+      ['امروز','مدل ترکیبی خرده‌فروشی و بازارگاه (Marketplace) ادامه دارد.']],
+  story:'دیجی‌کالا خرید اینترنتی را در ایران برای کاربر عادی آشنا کرد. تنوع کالا، اعتماد و تحویل از عوامل رشدش بوده است.',
+  lesson:'در بازار کم‌اعتماد، کاهش ریسک ادراک‌شده (تضمین، مرجوعی و پشتیبانی) مهم‌تر از قیمت است.', chap:'مرتبط با فصل تصمیم‌گیری خرید'},
+ {name:'نیوکوک', en:'New Coke (Coca-Cola)', sector:'نوشابه', win:false, outcome:'شکست',
+  tl:[['۱۹۸۵ (۲۳ آوریل)','کوکاکولا برای اولین بار بعد از ۹۹ سال، فرمول محصول اصلی‌اش را تغییر می‌دهد. در آزمون طعم، حدود ۲۰۰ هزار نفر نسخه‌ی جدید را ترجیح داده بودند.'],
+      ['اعتراض عمومی','مشتریان وفادار طوماری و اعتراضی راه می‌اندازند و حتی نسخه‌ی قدیمی را ذخیره می‌کنند.'],
+      ['۱۹۸۵ (۱۱ جولای)','پس از ۷۹ روز، فرمول قدیمی با نام «Coca-Cola Classic» برمی‌گردد.']],
+  story:'آزمون طعم نشان داد مردم مزه‌ی جدید را دوست دارند، ولی نشان نداد به کوکای قدیمی چقدر وابسته‌اند.',
+  lesson:'ارزش برند فقط به محصول وابسته نیست. معنا و خاطره‌ی عاطفی آن را در تحقیق بازار باید جداگانه سنجید.', chap:'مرتبط با فصل ادراک و نگرش'},
+ {name:'کداک', en:'Kodak', sector:'عکاسی', win:false, outcome:'سقوط',
+  tl:[['۱۹۷۵','استیون ساسون، مهندس کداک، اولین دوربین دیجیتال را می‌سازد. مدیران آن را جدی نمی‌گیرند.'],
+      ['دهه‌های بعد','کداک دوربین دیجیتال هم تولید می‌کند، ولی تغییر سلیقه‌ی مصرف‌کننده از فیلم را دیر برآورد می‌کند.'],
+      ['۲۰۱۲ (ژانویه)','کداک درخواست حمایت از ورشکستگی (فصل ۱۱) می‌دهد.']],
+  story:'کداک فناوری آینده را اول از همه داشت، ولی کسب‌وکار اصلی‌اش فروش فیلم بود و نمی‌خواست به آن آسیب بزند.',
+  lesson:'اگر شرکت خودش را «تولیدکننده‌ی فیلم» تعریف کند، نه «ثبت خاطرات»، نیاز در حال تغییر مشتری را نمی‌بیند. به این می‌گویند کوته‌بینی بازاریابی.', chap:'مرتبط با فصل نیاز و انگیزش'},
+ {name:'بلاک‌باستر', en:'Blockbuster', sector:'اجاره‌ی فیلم', win:false, outcome:'سقوط',
+  tl:[['۲۰۰۰','مدیرعامل بلاک‌باستر پیشنهاد خرید نتفلیکس به ۵۰ میلیون دلار را رد می‌کند. در همان سال شرکت حدود ۸۰۰ میلیون دلار جریمه‌ی دیرکرد دریافت کرده بود.'],
+      ['۲۰۰۴','بلاک‌باستر سرویس اشتراک آنلاین خودش را شروع می‌کند.'],
+      ['۲۰۱۰','شرکت درخواست حمایت از ورشکستگی می‌دهد.']],
+  story:'بخشی از سود بلاک‌باستر از چیزی می‌آمد که مشتری از آن متنفر بود، یعنی جریمه‌ی دیرکرد. حذفش برای شرکت دشوار بود.',
+  lesson:'ریشه‌ی سقوط فقط نتفلیکس نبود. بدهی و رقابت هم نقش داشتند، ولی مدل درآمدی خلاف رضایت مشتری آسیب‌پذیر است.', chap:'مرتبط با فصل رضایت و وفاداری'},
+ {name:'نوکیا', en:'Nokia (mobile)', sector:'تلفن همراه', win:false, outcome:'سقوط',
+  tl:[['۱۹۹۸ تا ۲۰۱۲','نوکیا بزرگ‌ترین فروشنده‌ی تلفن همراه جهان است. در اوج (۲۰۰۸) حدود ۴۰ درصد بازار را دارد.'],
+      ['۲۰۰۷ به بعد','آیفون و اندروید با تجربه‌ی لمسی سهم نوکیا را می‌خورند.'],
+      ['۲۰۱۱','نوکیا سیمبین را کنار می‌گذارد و با ویندوز فون همکاری می‌کند.'],
+      ['۲۰۱۳ (سپتامبر)','مایکروسافت بخش تلفن نوکیا را ۷٫۲ میلیارد دلار می‌خرد.']],
+  story:'نوکیا گوشی‌ساز عالی بود، ولی مصرف‌کننده‌ی جدید دنبال اکوسیستم اپلیکیشن و تجربه‌ی کاربری بود، نه فقط سخت‌افزار.',
+  lesson:'وقتی معیار ارزیابی مشتری عوض شود، برتری قبلی بی‌ارزش می‌شود. باید معیارهای جدید را زودتر دید.', chap:'مرتبط با فصل ادراک و ارزیابی گزینه‌ها'}
+];
+
+var POSTS = [
+ {title:'عنوان تحقیق اول', chapter:'ادراک', kind:'تحقیق', date:'به‌زودی', summary:'خلاصه‌ی کوتاه تحقیق در دو یا سه جمله اینجا قرار می‌گیرد.', links:[]},
+ {title:'عنوان ارائه‌ی اول', chapter:'انگیزش و ارزش‌ها', kind:'ارائه', date:'به‌زودی', summary:'خلاصه‌ی ارائه و نکته‌های اصلی اسلایدها اینجا قرار می‌گیرد.', links:[]},
+ {title:'یادداشت جمع‌بندی', chapter:'تصمیم‌گیری خرید', kind:'یادداشت', date:'به‌زودی', summary:'برداشت شخصی از فصل و مثالی از تجربه‌ی خرید خودم.', links:[]}
+];
+
+var SOURCES = [
+ ['Nike: The Swoosh logo history','https://about.nike.com/en/magazine/nike-swoosh-logo-history'],
+ ['Coca-Cola Company: New Coke, the most memorable marketing blunder','https://www.coca-colacompany.com/about-us/history/new-coke-the-most-memorable-marketing-blunder-ever'],
+ ['History.com: New Coke debuts','https://www.history.com/this-day-in-history/april-23/new-coke-debuts-one-of-the-biggest-product-flops-in-history'],
+ ['CNBC: How Netflix almost lost the movie rental wars','https://www.cnbc.com/2020/09/22/how-netflix-almost-lost-the-movie-rental-wars-to-blockbuster.html'],
+ ['Fast Company: Blockbuster bankruptcy and a decade of decline','https://www.fastcompany.com/1690654/blockbuster-bankruptcy-decade-decline'],
+ ['Marketplace: Reed Hastings on how Netflix beat Blockbuster','https://www.marketplace.org/story/2020/09/08/ceo-reed-hastings-on-how-netflix-beat-blockbuster'],
+ ['PetaPixel: How Steve Sasson invented the digital camera','https://petapixel.com/how-steve-sasson-invented-the-digital-camera/'],
+ ['MPR News: The Kodak picture','https://www.mprnews.org/story/2012/01/19/the-kodak-picture'],
+ ['Britannica: Jørgen Vig Knudstorp','https://www.britannica.com/print/article/2028353'],
+ ['Knowledge at Wharton: How innovation almost bankrupted LEGO','https://knowledge.wharton.upenn.edu/article/innovation-almost-bankrupted-lego-until-it-rebuilt-with-a-better-blueprint/'],
+ ['AOL: Nokia\'s mobile history becomes Microsoft\'s future','https://www.aol.com/2013/09/03/nokia-acqusition-proves-mobile-is-anything-but-pre/'],
+ ['Irish Times: Nokia\'s fall from king of the mobile market','https://www.irishtimes.com/business/technology/nokia-s-fall-from-king-of-the-mobile-market-to-bargain-buyout-is-a-tale-of-hubris-1.1515021'],
+ ['دیجیاتو: آشنایی با دیجی‌کالا','https://digiato.com/company/getting-know-digikala'],
+ ['مجله‌ی دیجی‌کالا: دیجی‌کالا در یک نگاه','https://www.digikala.com/mag/digi-at-a-galnce/']
+];
+
+/* ---------- ابزارها ---------- */
+function fa(s){return String(s).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d]});}
+function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=fa(text); return e;}
+function tabs(container, items, current, onPick){
+  container.innerHTML='';
+  items.forEach(function(it){
+    var b=el('button','tab',it[1]); b.type='button';
+    b.setAttribute('aria-pressed',String(it[0]===current));
+    b.addEventListener('click',function(){onPick(it[0]);});
+    container.appendChild(b);
+  });
+}
+var ICON_UP='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16l6-6 4 4 6-7"/><path d="M14 7h6v6"/></svg>';
+var ICON_DOWN='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l6 6 4-4 6 7"/><path d="M14 17h6v-6"/></svg>';
+
+/* ---------- کتاب‌ها ---------- */
+var bookCat='all';
+function renderBooks(){
+  tabs(document.getElementById('bookTabs'),BOOK_CATS,bookCat,function(c){bookCat=c;renderBooks();});
+  var g=document.getElementById('books-grid'); g.innerHTML='';
+  BOOKS.filter(function(b){return bookCat==='all'||b.cat===bookCat;}).forEach(function(b){
+    var c=el('article','book'); c.setAttribute('data-cat',b.cat);
+    c.appendChild(el('div','spine',b.spine));
+    var body=el('div','body');
+    body.appendChild(el('h3','',b.title));
+    var en=el('div','en',b.en); body.appendChild(en);
+    body.appendChild(el('div','by',b.by));
+    body.appendChild(el('p','',b.text));
+    body.appendChild(el('div','tie','پیوند با پرونده‌ها: '+b.tie));
+    c.appendChild(body); g.appendChild(c);
+  });
+}
+
+/* ---------- برندها ---------- */
+var brandFilter='all';
+function renderBrands(){
+  tabs(document.getElementById('brandTabs'),[['all','همه'],['win','موفقیت‌ها'],['lose','شکست‌ها']],brandFilter,function(c){brandFilter=c;renderBrands();});
+  var g=document.getElementById('cases'); g.innerHTML='';
+  BRANDS.filter(function(b){return brandFilter==='all'||(brandFilter==='win'?b.win:!b.win);}).forEach(function(b){
+    var c=el('article','case '+(b.win?'win':'lose'));
+    var h=el('header');
+    var t=el('div'); var h3=el('h3','',b.name); var sm=el('small','',b.en+' · '+b.sector); sm.style.direction='rtl'; h3.appendChild(sm); t.appendChild(h3);
+    h.appendChild(t);
+    var bd=el('span','badge'); bd.innerHTML=(b.win?ICON_UP:ICON_DOWN); bd.appendChild(document.createTextNode(b.outcome));
+    h.appendChild(bd); c.appendChild(h);
+    var inner=el('div','inner');
+    var ol=el('ol','tl');
+    b.tl.forEach(function(r){var li=el('li'); li.appendChild(el('b','',r[0])); li.appendChild(document.createTextNode(fa(r[1]))); ol.appendChild(li);});
+    inner.appendChild(ol);
+    inner.appendChild(el('p','',b.story));
+    var ls=el('div','lesson'); ls.appendChild(el('b','','درس رفتار مصرف‌کننده')); ls.appendChild(document.createTextNode(fa(b.lesson))); inner.appendChild(ls);
+    inner.appendChild(el('div','chap',b.chap));
+    c.appendChild(inner); g.appendChild(c);
+  });
+}
+
+/* ---------- مطالب من ---------- */
+var postKind='all';
+function renderPosts(){
+  tabs(document.getElementById('postTabs'),[['all','همه'],['تحقیق','تحقیق'],['ارائه','ارائه'],['یادداشت','یادداشت']],postKind,function(c){postKind=c;renderPosts();});
+  var f=document.getElementById('feed'); f.innerHTML='';
+  var list=POSTS.filter(function(p){return postKind==='all'||p.kind===postKind;});
+  list.forEach(function(p){
+    var c=el('article','post'+(p.links&&p.links.length?' real':''));
+    var m=el('div','meta'); m.appendChild(el('span','tag',p.chapter)); m.appendChild(el('span','',p.kind)); m.appendChild(el('span','',p.date)); c.appendChild(m);
+    c.appendChild(el('h3','',p.title)); c.appendChild(el('p','',p.summary));
+    var l=el('div','links');
+    if(p.links&&p.links.length){p.links.forEach(function(k,i){var a=el('a','',k.label); a.href=k.url; a.target='_blank'; a.rel='noopener'; if(i) l.appendChild(document.createTextNode(' · ')); l.appendChild(a);});}
+    else l.appendChild(el('span','off','فایل به‌زودی اضافه می‌شود'));
+    c.appendChild(l); f.appendChild(c);
+  });
+  document.getElementById('empty').style.display=list.length?'none':'block';
+}
+
+/* ---------- منابع و آمار ---------- */
+var sl=document.getElementById('srcList');
+SOURCES.forEach(function(s){var li=document.createElement('li'); var a=document.createElement('a'); a.href=s[1]; a.target='_blank'; a.rel='noopener'; a.textContent=s[0]; if(/^[\x00-\x7F]/.test(s[0])) a.className='en'; li.appendChild(a); sl.appendChild(li);});
+document.getElementById('nBooks').textContent=fa(BOOKS.length);
+document.getElementById('nBrands').textContent=fa(BRANDS.length);
+document.getElementById('nPosts').textContent=fa(POSTS.filter(function(p){return p.links&&p.links.length;}).length);
+renderBooks(); renderBrands(); renderPosts();
+</script>
+</body>
+</html>
